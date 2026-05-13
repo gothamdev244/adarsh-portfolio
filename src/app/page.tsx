@@ -58,11 +58,11 @@ function ResumeView() {
       <div>
         <h2 className="text-base font-semibold" style={{ color: "var(--fg)" }}>Projects</h2>
         <div className="mt-3 space-y-3">
-          <a href="https://github.com/gothamdev244/lease-shield-web" target="_blank" rel="noopener noreferrer" className="block p-3 rounded-lg cursor-pointer transition-opacity hover:opacity-80" style={{ border: "1px solid var(--border)" }}>
+          <a href="https://lease-shield-web.vercel.app" target="_blank" rel="noopener noreferrer" className="block p-3 rounded-lg cursor-pointer transition-opacity hover:opacity-80" style={{ border: "1px solid var(--border)" }}>
             <h3 className="text-sm font-semibold" style={{ color: "var(--fg)" }}>Lease Shield</h3>
             <p className="text-xs mt-1" style={{ color: "var(--muted)" }}>AI rental lease analyzer — Flue agent + Gemini flags illegal clauses in Indian leases, cites laws, generates pushback scripts</p>
           </a>
-          <a href="https://github.com/gothamdev244/docgraph-web" target="_blank" rel="noopener noreferrer" className="block p-3 rounded-lg cursor-pointer transition-opacity hover:opacity-80" style={{ border: "1px solid var(--border)" }}>
+          <a href="https://docgraph-web.vercel.app" target="_blank" rel="noopener noreferrer" className="block p-3 rounded-lg cursor-pointer transition-opacity hover:opacity-80" style={{ border: "1px solid var(--border)" }}>
             <h3 className="text-sm font-semibold" style={{ color: "var(--fg)" }}>DocGraph</h3>
             <p className="text-xs mt-1" style={{ color: "var(--muted)" }}>Upload docs → AI extracts entities → interactive knowledge graph + Agentic RAG Q&A with citations. Flue + PostgreSQL/pgvector</p>
           </a>
