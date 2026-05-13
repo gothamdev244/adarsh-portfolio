@@ -1,26 +1,62 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:where(.dark, .dark *));
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  --bg: #faf9f6;
+  --fg: #1a1a1a;
+  --muted: #8a8a8a;
+  --bubble-user: #1a1a1a;
+  --bubble-user-text: #faf9f6;
+  --bubble-ai: #f0eeeb;
+  --bubble-ai-text: #1a1a1a;
+  --border: #e5e3df;
+  --chip-bg: transparent;
+  --chip-border: #d4d1cc;
+  --input-bg: #ffffff;
+}
+
+.dark {
+  --bg: #09090b;
+  --fg: #e4e4e7;
+  --muted: #71717a;
+  --bubble-user: #e4e4e7;
+  --bubble-user-text: #09090b;
+  --bubble-ai: #18181b;
+  --bubble-ai-text: #d4d4d8;
+  --border: #27272a;
+  --chip-bg: transparent;
+  --chip-border: #3f3f46;
+  --input-bg: #18181b;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans), system-ui, sans-serif;
 }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-up {
+  animation: fadeUp 0.3s ease-out forwards;
+}
+
+@keyframes pulse-dot {
+  0%, 80%, 100% { opacity: 0.3; }
+  40% { opacity: 1; }
+}
+
+.typing-dot {
+  animation: pulse-dot 1.4s ease-in-out infinite;
+}
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
