@@ -158,15 +158,17 @@ export default function Home() {
         <ResumeView />
       ) : (
         <div className="flex-1 flex flex-col max-w-xl w-full mx-auto px-5">
-          <div className={`transition-all duration-500 ${hasMessages ? "pt-4 pb-3" : "flex-1 flex flex-col justify-center"}`}>
-            {!hasMessages && <p className="text-7xl font-extralight tracking-tight select-none" style={{ color: "var(--border)" }}>hi!</p>}
-            <h1 className={`font-semibold tracking-tight ${hasMessages ? "text-base" : "text-2xl mt-1"}`}>
-              {hasMessages ? "Adarsh Pandey" : <>I&apos;m Adarsh, senior engineer at <span className="text-blue-500">HSBC</span></>}
-            </h1>
+          <div className={`transition-all duration-500 ${hasMessages ? "pt-2 pb-1" : "flex-1 flex flex-col justify-center"}`}>
             {!hasMessages && (
-              <p className="mt-2 text-sm leading-relaxed" style={{ color: "var(--muted)" }}>
-                I break systems to understand them, then rebuild them better. this is my digital twin — ask anything.
-              </p>
+              <>
+                <p className="text-7xl font-extralight tracking-tight select-none" style={{ color: "var(--border)" }}>hi!</p>
+                <h1 className="text-2xl font-semibold tracking-tight mt-1">
+                  I&apos;m Adarsh, senior engineer at <span className="text-blue-500">HSBC</span>
+                </h1>
+                <p className="mt-2 text-sm leading-relaxed" style={{ color: "var(--muted)" }}>
+                  I break systems to understand them, then rebuild them better. this is my digital twin — ask anything.
+                </p>
+              </>
             )}
           </div>
 
@@ -183,10 +185,13 @@ export default function Home() {
           )}
 
           {hasMessages && (
-            <div className="flex-1 overflow-y-auto space-y-2 pb-2">
+            <div className="flex-1 overflow-y-auto space-y-3 pb-2">
               {messages.map((m, i) => (
-                <div key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"} animate-fade-up`}>
-                  <div className="max-w-[85%] px-4 py-2.5 text-sm leading-relaxed"
+                <div key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start gap-2"} animate-fade-up`}>
+                  {m.role === "assistant" && (
+                    <div className="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-bold mt-1" style={{ background: "var(--bubble-ai)", color: "var(--muted)" }}>AP</div>
+                  )}
+                  <div className="max-w-[80%] px-4 py-2.5 text-sm leading-relaxed"
                     style={{
                       background: m.role === "user" ? "var(--bubble-user)" : "var(--bubble-ai)",
                       color: m.role === "user" ? "var(--bubble-user-text)" : "var(--bubble-ai-text)",
