@@ -66,10 +66,6 @@ function ResumeView() {
             <h3 className="text-sm font-semibold" style={{ color: "var(--fg)" }}>DocGraph</h3>
             <p className="text-xs mt-1" style={{ color: "var(--muted)" }}>Upload docs → AI extracts entities → interactive knowledge graph + Agentic RAG Q&A with citations. Flue + PostgreSQL/pgvector</p>
           </a>
-          <div className="block p-3 rounded-lg" style={{ border: "1px solid var(--border)" }}>
-            <h3 className="text-sm font-semibold" style={{ color: "var(--fg)" }}>AI Personal Assistant <span className="text-xs font-normal" style={{ color: "var(--muted)" }}>(private)</span></h3>
-            <p className="text-xs mt-1" style={{ color: "var(--muted)" }}>Multi-agent system on Telegram — email, finance, health, coding. 100+ autonomous daily interactions</p>
-          </div>
         </div>
       </div>
       <div className="mt-6">
