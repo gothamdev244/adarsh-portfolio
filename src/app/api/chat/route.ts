@@ -37,7 +37,6 @@ export async function POST(req: Request) {
     system: SYSTEM_PROMPT,
     messages,
     temperature: 0.7,
-    maxTokens: 200,
   });
 
   const encoder = new TextEncoder();
