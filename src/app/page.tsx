@@ -56,9 +56,26 @@ function ResumeView() {
         </div>
       ))}
       <div>
+        <h2 className="text-base font-semibold" style={{ color: "var(--fg)" }}>Projects</h2>
+        <div className="mt-3 space-y-3">
+          <a href="https://github.com/gothamdev244/lease-shield-web" target="_blank" rel="noopener noreferrer" className="block p-3 rounded-lg cursor-pointer transition-opacity hover:opacity-80" style={{ border: "1px solid var(--border)" }}>
+            <h3 className="text-sm font-semibold" style={{ color: "var(--fg)" }}>Lease Shield</h3>
+            <p className="text-xs mt-1" style={{ color: "var(--muted)" }}>AI rental lease analyzer — Flue agent + Gemini flags illegal clauses in Indian leases, cites laws, generates pushback scripts</p>
+          </a>
+          <a href="https://github.com/gothamdev244/docgraph-web" target="_blank" rel="noopener noreferrer" className="block p-3 rounded-lg cursor-pointer transition-opacity hover:opacity-80" style={{ border: "1px solid var(--border)" }}>
+            <h3 className="text-sm font-semibold" style={{ color: "var(--fg)" }}>DocGraph</h3>
+            <p className="text-xs mt-1" style={{ color: "var(--muted)" }}>Upload docs → AI extracts entities → interactive knowledge graph + Agentic RAG Q&A with citations. Flue + PostgreSQL/pgvector</p>
+          </a>
+          <a href="https://github.com/gothamdev244/openclaw-adarsh" target="_blank" rel="noopener noreferrer" className="block p-3 rounded-lg cursor-pointer transition-opacity hover:opacity-80" style={{ border: "1px solid var(--border)" }}>
+            <h3 className="text-sm font-semibold" style={{ color: "var(--fg)" }}>AI Personal Assistant</h3>
+            <p className="text-xs mt-1" style={{ color: "var(--muted)" }}>Multi-agent system on Telegram — email, finance, health, coding. 100+ autonomous daily interactions</p>
+          </a>
+        </div>
+      </div>
+      <div className="mt-6">
         <h2 className="text-base font-semibold" style={{ color: "var(--fg)" }}>Skills</h2>
         <div className="mt-2 flex flex-wrap gap-1.5">
-          {["Java", "Python", "TypeScript", "Spring Boot", "React", "LangChain", "LangGraph", "Flue", "Kafka", "gRPC", "Docker", "OpenShift", "MongoDB"].map((s) => (
+          {["Java", "Python", "TypeScript", "Spring Boot", "React", "LangChain", "LangGraph", "Flue", "Kafka", "gRPC", "Docker", "OpenShift", "MongoDB", "pgvector"].map((s) => (
             <span key={s} className="px-2.5 py-1 text-xs rounded-full" style={{ border: "1px solid var(--border)", color: "var(--muted)" }}>{s}</span>
           ))}
         </div>

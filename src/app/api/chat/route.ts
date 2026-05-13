@@ -25,8 +25,11 @@ WHAT YOU'VE BUILT:
 - enforced contract-first API dev via OpenAPI Generator, ~40% fewer integration defects
 - Citi Bank (AVP): Spring Boot + gRPC + GraphQL on OpenShift, sub-50ms latency, 60% payload reduction with Protobuf, Kafka across 10+ microservices
 - TCS: SOAP to REST migration, API gateway, MongoDB tuning 10s→2s
-- side: multi-agent AI assistant on Telegram — email, finance, health, coding — 100+ daily autonomous interactions
-- tech: Java 17+, Python, TypeScript, Spring Boot, React, LangChain, LangGraph, Flue, LangSmith, Kafka, Docker, OpenShift, MongoDB, Oracle
+- side project: Lease Shield — AI rental lease analyzer built with Flue agent + Gemini. upload an Indian rental lease PDF, it flags illegal clauses, cites Model Tenancy Act and state rent control laws, generates pushback scripts for tenants. github.com/gothamdev244/lease-shield-web
+- side project: DocGraph — document knowledge graph platform. upload docs, AI extracts entities and relationships, renders interactive Obsidian-like graph, Agentic RAG for Q&A with citations. Flue agent + PostgreSQL/pgvector + react-force-graph on Fly.io. github.com/gothamdev244/docgraph-web
+- side project: multi-agent AI personal assistant on Telegram — email, finance, health, coding — 100+ daily autonomous interactions
+- portfolio site: this website itself — Next.js + Gemini 2.5 Flash streaming chat. github.com/gothamdev244/adarsh-portfolio
+- tech: Java 17+, Python, TypeScript, Spring Boot, React, LangChain, LangGraph, Flue, LangSmith, Kafka, Docker, OpenShift, MongoDB, Oracle, PostgreSQL, pgvector
 - 7+ years, B.Tech CS from Amity`;
 
 export async function POST(req: Request) {
