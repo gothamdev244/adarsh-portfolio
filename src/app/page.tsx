@@ -24,7 +24,7 @@ function TypingIndicator() {
 
 function ResumeView() {
   return (
-    <div className="max-w-xl mx-auto px-6 py-10 animate-fade-up">
+    <div className="max-w-xl mx-auto px-4 sm:px-6 py-8 sm:py-10 animate-fade-up">
       {[
         { title: "HSBC", sub: "Senior Consultant — CCaaS Platform · Jun 2025 – Present", items: [
           "Lead architect — 10+ microservices, WebSocket gateway, React micro frontends (Module Federation)",
@@ -136,16 +136,16 @@ export default function Home() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <nav className="flex justify-between items-center px-5 py-3">
+      <nav className="flex justify-between items-center px-4 sm:px-5 py-3">
         <div className="flex gap-0.5 p-0.5 rounded-full" style={{ background: "var(--input-bg)", border: "1px solid var(--border)" }}>
           {(["ask", "resume"] as const).map((m) => (
-            <button key={m} onClick={() => setMode(m)} className="px-4 py-1.5 text-xs rounded-full transition-all duration-200"
+            <button key={m} onClick={() => setMode(m)} className="px-3 sm:px-4 py-1.5 text-xs rounded-full transition-all duration-200"
               style={{ background: mode === m ? "var(--fg)" : "transparent", color: mode === m ? "var(--bg)" : "var(--muted)", fontWeight: mode === m ? 600 : 400 }}>
               {m === "ask" ? "ask me" : "résumé"}
             </button>
           ))}
         </div>
-        <div className="flex gap-4 items-center text-xs" style={{ color: "var(--muted)" }}>
+        <div className="flex gap-3 sm:gap-4 items-center text-xs" style={{ color: "var(--muted)" }}>
           <a href="https://github.com/adarshp14" target="_blank" rel="noopener noreferrer" className="hover:opacity-70 transition-opacity">github</a>
           <a href="https://linkedin.com/in/adarsh-pandey-2017" target="_blank" rel="noopener noreferrer" className="hover:opacity-70 transition-opacity">linkedin</a>
           <button onClick={() => setDark(!dark)} className="hover:opacity-70 transition-opacity" aria-label="Toggle theme">
@@ -157,15 +157,15 @@ export default function Home() {
       {mode === "resume" ? (
         <ResumeView />
       ) : (
-        <div className="flex-1 flex flex-col max-w-xl w-full mx-auto px-5">
+        <div className="flex-1 flex flex-col max-w-xl w-full mx-auto px-4 sm:px-5">
           <div className={`transition-all duration-500 ${hasMessages ? "pt-2 pb-1" : "flex-1 flex flex-col justify-center"}`}>
             {!hasMessages && (
               <>
-                <p className="text-7xl font-extralight tracking-tight select-none" style={{ color: "var(--border)" }}>hi!</p>
-                <h1 className="text-2xl font-semibold tracking-tight mt-1">
+                <p className="text-4xl sm:text-5xl md:text-7xl font-extralight tracking-tight select-none" style={{ color: "var(--border)" }}>hi!</p>
+                <h1 className="text-xl sm:text-2xl font-semibold tracking-tight mt-1">
                   I&apos;m Adarsh, senior engineer at <span className="text-blue-500">HSBC</span>
                 </h1>
-                <p className="mt-2 text-sm leading-relaxed" style={{ color: "var(--muted)" }}>
+                <p className="mt-2 text-xs sm:text-sm leading-relaxed" style={{ color: "var(--muted)" }}>
                   I break systems to understand them, then rebuild them better. this is my digital twin — ask anything.
                 </p>
               </>
@@ -173,10 +173,10 @@ export default function Home() {
           </div>
 
           {!hasMessages && (
-            <div className="flex flex-wrap gap-2 mb-6 animate-fade-up">
+            <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-6 animate-fade-up">
               {CHIPS.map((chip) => (
                 <button key={chip} onClick={() => sendMessage(chip)}
-                  className="px-3 py-1.5 text-xs rounded-full transition-all duration-200 hover:scale-[1.02]"
+                  className="px-2.5 sm:px-3 py-1.5 text-[11px] sm:text-xs rounded-full transition-all duration-200 hover:scale-[1.02]"
                   style={{ border: "1px solid var(--chip-border)", color: "var(--muted)" }}>
                   {chip}
                 </button>
@@ -191,7 +191,7 @@ export default function Home() {
                   {m.role === "assistant" && (
                     <div className="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-bold mt-1" style={{ background: "var(--bubble-ai)", color: "var(--muted)" }}>AP</div>
                   )}
-                  <div className="max-w-[80%] px-4 py-2.5 text-sm leading-relaxed"
+                  <div className="max-w-[85%] sm:max-w-[80%] px-3 sm:px-4 py-2 sm:py-2.5 text-[13px] sm:text-sm leading-relaxed"
                     style={{
                       background: m.role === "user" ? "var(--bubble-user)" : "var(--bubble-ai)",
                       color: m.role === "user" ? "var(--bubble-user-text)" : "var(--bubble-ai-text)",
@@ -207,10 +207,10 @@ export default function Home() {
 
           <div className="sticky bottom-0 pb-3 pt-2" style={{ background: `linear-gradient(transparent, var(--bg) 30%)` }}>
             <form onSubmit={(e) => { e.preventDefault(); sendMessage(input); }}
-              className="flex items-center gap-2 px-4 py-2.5 rounded-full"
+              className="flex items-center gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-full"
               style={{ background: "var(--input-bg)", border: "1px solid var(--border)" }}>
               <input type="text" value={input} onChange={(e) => setInput(e.target.value)}
-                placeholder="ask me anything..." className="flex-1 bg-transparent outline-none text-sm"
+                placeholder="ask me anything..." className="flex-1 bg-transparent outline-none text-[13px] sm:text-sm"
                 style={{ color: "var(--fg)" }} disabled={loading} />
               <button type="submit" disabled={loading || !input.trim()}
                 className="transition-opacity disabled:opacity-20" style={{ color: "var(--muted)" }}>
