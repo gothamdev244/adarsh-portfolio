@@ -66,12 +66,16 @@ function ResumeView() {
             <h3 className="text-sm font-semibold" style={{ color: "var(--fg)" }}>DocGraph</h3>
             <p className="text-xs mt-1" style={{ color: "var(--muted)" }}>Upload docs → AI extracts entities → interactive knowledge graph + Agentic RAG Q&A with citations. Flue + PostgreSQL/pgvector</p>
           </a>
+          <a href="https://github.com/gothamdev244/relay" target="_blank" rel="noopener noreferrer" className="block p-3 rounded-lg cursor-pointer transition-opacity hover:opacity-80" style={{ border: "1px solid var(--border)" }}>
+            <h3 className="text-sm font-semibold" style={{ color: "var(--fg)" }}>Relay</h3>
+            <p className="text-xs mt-1" style={{ color: "var(--muted)" }}>AI agent integration gateway — one catalog connecting Claude Code, Cursor, Codex to any OpenAPI, MCP, GraphQL, or custom tool. QuickJS sandbox + Effect TS</p>
+          </a>
         </div>
       </div>
       <div className="mt-6">
         <h2 className="text-base font-semibold" style={{ color: "var(--fg)" }}>Skills</h2>
         <div className="mt-2 flex flex-wrap gap-1.5">
-          {["Java", "Python", "TypeScript", "Spring Boot", "React", "LangChain", "LangGraph", "Flue", "Kafka", "gRPC", "Docker", "OpenShift", "MongoDB", "pgvector"].map((s) => (
+          {["Java", "Python", "TypeScript", "Spring Boot", "React", "LangChain", "LangGraph", "Flue", "Kafka", "gRPC", "Docker", "OpenShift", "MongoDB", "pgvector", "MCP", "Effect TS"].map((s) => (
             <span key={s} className="px-2.5 py-1 text-xs rounded-full" style={{ border: "1px solid var(--border)", color: "var(--muted)" }}>{s}</span>
           ))}
         </div>
