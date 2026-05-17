@@ -90,14 +90,21 @@ export default function Home() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
-  const bottomRef = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const isStreamingRef = useRef(false);
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", dark);
   }, [dark]);
 
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    const el = scrollRef.current;
+    if (!el) return;
+    if (isStreamingRef.current) {
+      el.scrollTop = el.scrollHeight;
+    } else {
+      el.scrollTo({ top: el.scrollHeight, behavior: "smooth" });
+    }
   }, [messages]);
 
   const sendMessage = useCallback(async (text: string) => {
@@ -122,6 +129,7 @@ export default function Home() {
       let assistantText = "";
 
       setMessages([...newMessages, { role: "assistant", content: "" }]);
+      isStreamingRef.current = true;
 
       while (reader) {
         const { done, value } = await reader.read();
@@ -132,6 +140,7 @@ export default function Home() {
     } catch {
       setMessages([...newMessages, { role: "assistant", content: "something broke. try again?" }]);
     } finally {
+      isStreamingRef.current = false;
       setLoading(false);
     }
   }, [messages, loading]);
@@ -139,8 +148,8 @@ export default function Home() {
   const hasMessages = messages.length > 0;
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <nav className="flex justify-between items-center px-4 sm:px-5 py-3">
+    <div className="flex flex-col h-[100dvh]">
+      <nav className="flex-none flex justify-between items-center px-4 sm:px-5 py-3">
         <div className="flex gap-0.5 p-0.5 rounded-full" style={{ background: "var(--input-bg)", border: "1px solid var(--border)" }}>
           {(["ask", "resume"] as const).map((m) => (
             <button key={m} onClick={() => setMode(m)} className="px-3 sm:px-4 py-1.5 text-xs rounded-full transition-all duration-200"
@@ -159,57 +168,55 @@ export default function Home() {
       </nav>
 
       {mode === "resume" ? (
-        <ResumeView />
+        <div className="flex-1 min-h-0 overflow-y-auto">
+          <ResumeView />
+        </div>
       ) : (
-        <div className="flex-1 flex flex-col max-w-xl w-full mx-auto px-4 sm:px-5">
-          <div className={`transition-all duration-500 ${hasMessages ? "pt-2 pb-1" : "flex-1 flex flex-col justify-center"}`}>
-            {!hasMessages && (
-              <>
-                <p className="text-4xl sm:text-5xl md:text-7xl font-extralight tracking-tight select-none" style={{ color: "var(--border)" }}>hi!</p>
-                <h1 className="text-xl sm:text-2xl font-semibold tracking-tight mt-1">
-                  I&apos;m Adarsh, senior engineer at <span className="text-blue-500">HSBC</span>
-                </h1>
-                <p className="mt-2 text-xs sm:text-sm leading-relaxed" style={{ color: "var(--muted)" }}>
-                  I break systems to understand them, then rebuild them better. this is my digital twin — ask anything.
-                </p>
-              </>
+        <div className="flex-1 flex flex-col max-w-xl w-full mx-auto px-4 sm:px-5 min-h-0">
+          <div ref={scrollRef} className="flex-1 overflow-y-auto min-h-0">
+            {!hasMessages ? (
+              <div className="h-full flex flex-col">
+                <div className="flex-1 flex flex-col justify-center">
+                  <p className="text-4xl sm:text-5xl md:text-7xl font-extralight tracking-tight select-none" style={{ color: "var(--border)" }}>hi!</p>
+                  <h1 className="text-xl sm:text-2xl font-semibold tracking-tight mt-1">
+                    I&apos;m Adarsh, senior engineer at <span className="text-blue-500">HSBC</span>
+                  </h1>
+                  <p className="mt-2 text-xs sm:text-sm leading-relaxed" style={{ color: "var(--muted)" }}>
+                    I break systems to understand them, then rebuild them better. this is my digital twin — ask anything.
+                  </p>
+                </div>
+                <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-4 animate-fade-up">
+                  {CHIPS.map((chip) => (
+                    <button key={chip} onClick={() => sendMessage(chip)}
+                      className="px-2.5 sm:px-3 py-1.5 text-[11px] sm:text-xs rounded-full transition-all duration-200 hover:scale-[1.02]"
+                      style={{ border: "1px solid var(--chip-border)", color: "var(--muted)" }}>
+                      {chip}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <div className="space-y-3 py-2">
+                {messages.map((m, i) => (
+                  <div key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start gap-2"} animate-fade-up`}>
+                    {m.role === "assistant" && (
+                      <div className="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-bold mt-1" style={{ background: "var(--bubble-ai)", color: "var(--muted)" }}>AP</div>
+                    )}
+                    <div className="max-w-[85%] sm:max-w-[80%] px-3 sm:px-4 py-2 sm:py-2.5 text-[13px] sm:text-sm leading-relaxed"
+                      style={{
+                        background: m.role === "user" ? "var(--bubble-user)" : "var(--bubble-ai)",
+                        color: m.role === "user" ? "var(--bubble-user-text)" : "var(--bubble-ai-text)",
+                        borderRadius: m.role === "user" ? "20px 20px 4px 20px" : "20px 20px 20px 4px",
+                      }}>
+                      {m.content || <TypingIndicator />}
+                    </div>
+                  </div>
+                ))}
+              </div>
             )}
           </div>
 
-          {!hasMessages && (
-            <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-6 animate-fade-up">
-              {CHIPS.map((chip) => (
-                <button key={chip} onClick={() => sendMessage(chip)}
-                  className="px-2.5 sm:px-3 py-1.5 text-[11px] sm:text-xs rounded-full transition-all duration-200 hover:scale-[1.02]"
-                  style={{ border: "1px solid var(--chip-border)", color: "var(--muted)" }}>
-                  {chip}
-                </button>
-              ))}
-            </div>
-          )}
-
-          {hasMessages && (
-            <div className="flex-1 overflow-y-auto space-y-3 pb-2">
-              {messages.map((m, i) => (
-                <div key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start gap-2"} animate-fade-up`}>
-                  {m.role === "assistant" && (
-                    <div className="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-bold mt-1" style={{ background: "var(--bubble-ai)", color: "var(--muted)" }}>AP</div>
-                  )}
-                  <div className="max-w-[85%] sm:max-w-[80%] px-3 sm:px-4 py-2 sm:py-2.5 text-[13px] sm:text-sm leading-relaxed"
-                    style={{
-                      background: m.role === "user" ? "var(--bubble-user)" : "var(--bubble-ai)",
-                      color: m.role === "user" ? "var(--bubble-user-text)" : "var(--bubble-ai-text)",
-                      borderRadius: m.role === "user" ? "20px 20px 4px 20px" : "20px 20px 20px 4px",
-                    }}>
-                    {m.content || <TypingIndicator />}
-                  </div>
-                </div>
-              ))}
-              <div ref={bottomRef} />
-            </div>
-          )}
-
-          <div className="sticky bottom-0 pb-3 pt-2" style={{ background: `linear-gradient(transparent, var(--bg) 30%)` }}>
+          <div className="flex-none pb-3 pt-2">
             <form onSubmit={(e) => { e.preventDefault(); sendMessage(input); }}
               className="flex items-center gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-full"
               style={{ background: "var(--input-bg)", border: "1px solid var(--border)" }}>
